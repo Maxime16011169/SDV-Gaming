@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Ce fichier est utilisé par le processus de publication/package de votre projet web. Vous pouvez personnaliser le comportement de ce processus
+en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAIftXQmFA20qnxFVq4rXGQAAAAAACAAAAAAAQZgAAAAEAACAAAAC/8pZ8P6R348eLf08FYshzANEIYXgdZh/O8P5Ig46mGQAAAAAOgAAAAAIAACAAAADXrVmkGrI+l7w1EHmKq+pqOLrudQdVtZguoW7B/BRxUIAAAAAvaWDvIHT0N6T2c3mQdz/V05/m8Ymk+YPksAk27l1Vs03U7Axgiu5Asr4MztiEDmneBYd0RyRjz7kTB+Am7U9dm5Dsubk24rWbgl2hh3TE9b/lKBesHiIwrq2e2Oc5nbuilu3dGNNeVeQINck5xWtw4ynIIUxFX3gHmw7tkbHhxUAAAABpO+cGm5ywyvufAHw5ZF8M94uB7uom+wO9b0k7UviOyD+06Q+rBH6u3AdghvseBqkyM6dUJVHyc+/mut2LOhFO</EncryptedPassword>
+    <History>True|2022-06-15T12:16:50.1452655Z;True|2022-06-15T10:28:33.8409810+02:00;False|2022-06-15T10:21:56.4560666+02:00;False|2022-06-15T10:15:12.4617622+02:00;False|2022-06-15T10:11:25.5413276+02:00;False|2022-06-15T10:07:56.7470649+02:00;True|2022-06-15T09:59:44.9775852+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="WebProjectAzure.Data.ApplicationDbContext">
+      <Value>Server=tcp:serverofpierre.database.windows.net,1433%3bInitial Catalog=bddofpierre%3bPersist Security Info=False%3bUser ID=ElouanAdmin%3bPassword=4-v3ry-53cr37-p455w0rd%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
