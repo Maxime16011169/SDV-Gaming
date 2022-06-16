@@ -11670,24 +11670,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\duval\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\martin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Master\\azure\\WebProjectAzure\\WebProjectAzure\\WebProjectAzure.csproj",
+      "projectUniqueName": "C:\\Users\\martin\\Documents\\Projects\\Visual Studio\\sdv-gaming\\WebProjectAzure\\WebProjectAzure.csproj",
       "projectName": "WebProjectAzure",
-      "projectPath": "D:\\Master\\azure\\WebProjectAzure\\WebProjectAzure\\WebProjectAzure.csproj",
-      "packagesPath": "C:\\Users\\duval\\.nuget\\packages\\",
-      "outputPath": "D:\\Master\\azure\\WebProjectAzure\\WebProjectAzure\\obj\\",
+      "projectPath": "C:\\Users\\martin\\Documents\\Projects\\Visual Studio\\sdv-gaming\\WebProjectAzure\\WebProjectAzure.csproj",
+      "packagesPath": "C:\\Users\\martin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\martin\\Documents\\Projects\\Visual Studio\\sdv-gaming\\WebProjectAzure\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\duval\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

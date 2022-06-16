@@ -15,9 +15,6 @@ namespace WebProjectAzure.Controllers
 
         public IActionResult Index()
         {
-            AzureVM azureConfig = new AzureVM();
-            azureConfig.Authenticate();
-
             return View();
         }
 

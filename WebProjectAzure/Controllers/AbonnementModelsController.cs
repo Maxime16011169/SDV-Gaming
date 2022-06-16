@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebProjectAzure.Data;
 using WebProjectAzure.Models;
+using WebProjectAzure.Azure;
 
 namespace WebProjectAzure.Controllers
 {
@@ -20,32 +21,15 @@ namespace WebProjectAzure.Controllers
         }
 
         // GET: AbonnementModels
-        //public async Task<IActionResult> Index()
-        //{
-        //    if (!_context.ListeAbonnement.Any())
-        //    {
-        //        return RedirectToAction("Create");
-        //    }
-        //    else
-        //    {
-        //        return _context.ListeAbonnement != null ?
-        //                View(await _context.ListeAbonnement.ToListAsync()) :
-        //                Problem("Entity set 'ApplicationDbContext.ListeAbonnement'  is null.");
-        //    }
-        //}
-
         public async Task<IActionResult> Index(string sortOrder)
         {
-            ViewData["MailSortParm"] = String.IsNullOrEmpty(sortOrder) ? "mail_desc" : "";
-            var abonnement = from a in _context.ListeAbonnement
-                           select a;
-            switch (sortOrder)
-            {
-                case "mail_desc":
-                    abonnement = abonnement.OrderByDescending(a => a.Mail);
-                    break;
-            }
-            return View(await abonnement.AsNoTracking().ToListAsync());
+            if (_context.ListeAbonnement == null) return Problem("Entity set 'ApplicationDbContext.abonnements'  is null.");
+
+            if (!_context.ListeAbonnement.Any()) return RedirectToAction(nameof(Create));
+
+            return View(await _context.ListeAbonnement
+                .Where(a => a.Mail == HttpContext.User.Identity.Name)
+                .ToListAsync());
         }
 
         // GET: AbonnementModels/Details/5
@@ -82,6 +66,9 @@ namespace WebProjectAzure.Controllers
             abonnementModel.Mail = HttpContext.User.Identity.Name;
             _context.Add(abonnementModel);
             await _context.SaveChangesAsync();
+
+            AzureManager.Instance.CreateVM(abonnementModel.Id);
+
             return RedirectToAction(nameof(Index));
         }
 
