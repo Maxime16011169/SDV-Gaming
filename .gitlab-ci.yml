@@ -8,7 +8,6 @@ before_script:
   - rm -rf .terraform
   - terraform --version
   - terraform init
-  - az login --tenant $ARM_TENANT_ID -u $AZ_USERNAME -p $AZ_PASSWORD
  
 stages:
   - validate
