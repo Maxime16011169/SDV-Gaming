@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Maxime16011169/SDV-Gaming/issues"
   },
+  "publishConfig": {
+    "@YMaxime16011169:registry": "https://npm.pkg.github.com"
+  },
   "homepage": "https://github.com/Maxime16011169/SDV-Gaming#readme"
 }
