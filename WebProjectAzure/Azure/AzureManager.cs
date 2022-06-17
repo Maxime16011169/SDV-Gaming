@@ -15,10 +15,10 @@ namespace WebProjectAzure.Azure
         public static AzureManager Instance => _instance ??= new AzureManager();
         #endregion
 
-        private const string SUBSCRIPTION_ID = "98baef72-a037-4a11-afcf-2be02d7b930e";
+        private const string SUBSCRIPTION_ID = "51c47597-a3dd-4aa7-a8ad-c380c80e82f2";
         private const string TENANT_ID = "b7b023b8-7c32-4c02-92a6-c8cdaa1d189c";
-        private const string APP_ID = "a3257d71-7a81-4c7b-b2f6-8a60f8c895c3";
-        private const string APP_SECRET = "azs8Q~.WwsBElOBmBIwlc5ve97EZlO--HtHpFcuJ";
+        private const string APP_ID = "8b7ccfab-d92a-402a-b44a-aae997652ddf";
+        private const string APP_SECRET = "GXH8Q~LoxcR3Gu5Xtn8q4yB.oxWvulFPhhcMic6K";
 
         private const string RESOURCE_GROUP_NAME = "sdv-tp-1-vm";
         private const string VNET_NAME = "sdv-v-net";
