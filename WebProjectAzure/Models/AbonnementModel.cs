@@ -45,5 +45,10 @@ namespace WebProjectAzure.Models
         [Required]
         [DisplayName("Mail")]
         public string Mail { get; set; }
+
+        /// <summary>
+        /// Identifiant Azure de la VM
+        /// </summary>
+        public string IdVm { get; set; }
     }
 }
