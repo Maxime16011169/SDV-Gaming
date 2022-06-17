@@ -1,0 +1,19 @@
+{
+  "name": "@maxime16011169/sdv-gaming",
+  "version": "1.0.0",
+  "description": "package pour image docker du projet",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxime16011169/SDV-Gaming.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maxime16011169/SDV-Gaming/issues"
+  },
+  "homepage": "https://github.com/Maxime16011169/SDV-Gaming#readme"
+}
