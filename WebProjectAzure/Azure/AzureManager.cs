@@ -4,6 +4,7 @@ using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.Network.Fluent;
 using Microsoft.Azure.Management.Compute.Fluent;
 using Microsoft.Azure.Management.Compute.Fluent.Models;
+using WebProjectAzure.Models;
 
 namespace WebProjectAzure.Azure
 {
@@ -39,19 +40,19 @@ namespace WebProjectAzure.Azure
                 .WithSubscription(SUBSCRIPTION_ID);
         }
 
-        public IVirtualMachine? CreateVM(int vmId)
+        public IVirtualMachine? CreateVM(AbonnementModel abonnement)
         {
             IResourceGroup resourceGroup = azure.ResourceGroups.GetByName(RESOURCE_GROUP_NAME);
             INetwork network = azure.Networks.GetByResourceGroup(RESOURCE_GROUP_NAME, VNET_NAME);
 
             IPublicIPAddress ipAddress = azure.PublicIPAddresses
-                .Define(VM_NAME_PREFFIX + "-ip-" + vmId)
+                .Define(VM_NAME_PREFFIX + "-ip-" + abonnement.Id)
                 .WithRegion(resourceGroup.RegionName)
                 .WithExistingResourceGroup(resourceGroup)
                 .Create();
 
             INetworkInterface networkInterface = azure.NetworkInterfaces
-                .Define(VM_NAME_PREFFIX + "-network-interface-" + vmId)
+                .Define(VM_NAME_PREFFIX + "-network-interface-" + abonnement.Id)
                 .WithRegion(resourceGroup.RegionName)
                 .WithExistingResourceGroup(resourceGroup)
                 .WithExistingPrimaryNetwork(network)
@@ -61,7 +62,7 @@ namespace WebProjectAzure.Azure
                 .Create();
 
             return azure.VirtualMachines
-                .Define(VM_NAME_PREFFIX + "-" + vmId)
+                .Define(VM_NAME_PREFFIX + "-" + abonnement.Id)
                 .WithRegion(resourceGroup.RegionName)
                 .WithExistingResourceGroup(resourceGroup)
                 .WithExistingPrimaryNetworkInterface(networkInterface)
@@ -69,8 +70,34 @@ namespace WebProjectAzure.Azure
                 .WithAdminUsername("martinbarre29")
                 .WithAdminPassword("barremartin29!")
                 .WithSize(VirtualMachineSizeTypes.StandardDS2)
-                .WithOSDiskName(VM_NAME_PREFFIX + "-OsDisk-" + vmId)
+                .WithOSDiskName(VM_NAME_PREFFIX + "-OsDisk-" + abonnement.Id)
                 .Create();
+        }
+
+        public string GetState(string vmId)
+        {
+            return azure.VirtualMachines.GetById(vmId).PowerState.ToString();
+        }
+
+        public void ShutDownVM(IVirtualMachine vm)
+        {
+            vm.PowerOffAsync();
+
+            Console.WriteLine("Currently VM {0} is {1}", vm.Id, vm.PowerState.ToString());
+        }
+
+        private void StartVM(IVirtualMachine vm)
+        {
+            vm.StartAsync();
+
+            Console.WriteLine("Currently VM {0} is {1}", vm.Id, vm.PowerState.ToString());
+        }
+
+        private void DeleteVM(IVirtualMachine vm)
+        {
+            azure.VirtualMachines.DeleteByIdAsync(vm.Id);
+
+            Console.WriteLine("Currently VM {0} is {1}", vm.Id, vm.PowerState.ToString());
         }
 
     }
