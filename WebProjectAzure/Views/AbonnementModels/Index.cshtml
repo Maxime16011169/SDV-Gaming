@@ -7,10 +7,11 @@
 <h1>Index</h1>
 
 <p>
-    @*<button type="button" asp-action="Create" class="btn btn-primary">Create New</button>*@
-       <a asp-action="Create">Create New</a> 
+    <form class="form-inline">
+        <button asp-action="Create" type="submit" class="nav-link btn btn-primary text-light">Create new</button>
+    </form>
 </p>
-<table class="table">
+<table class="table table-bordered text-center">
     <thead>
         <tr>
             <th>
@@ -29,10 +30,13 @@
                 Subscription Action
             </th>
             <th>
-                Virtual Machine Status
+                VM Status
             </th>
             <th>
-                Virtual Machine Action
+                VM Start
+            </th>
+            <th>
+                VM Stop
             </th>
         </tr>
     </thead>
@@ -52,24 +56,37 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Mail)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td class="d-flex">
+                    <div class="row">
+                        <form class="col-4" asp-action="Edit" asp-route-id="@item.Id">
+                            <button type="submit" class="nav-link btn btn-link text-light">
+                                <img src="~/edit.svg" width="20px" height="20px">
+                            </button>
+                        </form>
+                        <form class="col-4" asp-action="Details" asp-route-id="@item.Id">
+                            <button type="submit" class="nav-link btn btn-link text-light">
+                                <img src="~/info.svg" width="20px" height="20px">
+                            </button>
+                        </form>
+                        <form class="col-4" asp-action="Delete" asp-route-id="@item.Id">
+                            <button type="submit" class="nav-link btn btn-link text-light">
+                                <img src="~/trash.svg" width="20px" height="20px">
+                            </button>
+                        </form>
+                    </div>
                 </td>
                 <td>
-                    idVm
-                    @*@Html.DisplayFor(modelItem =>item.IdVm)*@
+                    @Html.DisplayFor(modelItem =>item.IdVm)
                 </td>
                 <td>
-                    <a asp-action="Start" asp-route-id="@item.Id">Start</a> |
-                    @*<form class="form-inline" asp-area="" asp-page="" asp-route-returnUrl="@Url.Action()">
-                <button type="submit" class="btn btn-success">Start</button>
-                </form>*@
-                    @*<button asp-action="Start" class="btn btn-success">Start</button>
-                @*<button type="button" asp-action="Start" class="btn btn-success">Start</button>*@
-                    <a asp-action="Stop" asp-route-id="@item.Id">Stop</a>
-                    @*<button type="button" asp-action="Stop" class="btn btn-danger">Stop</button>*@
+                    <form class="form-inline">
+                        <button asp-action="Start" type="submit" class="nav-link btn btn-success text-light">Start</button>
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline">
+                        <button asp-action="Stop" type="submit" class="nav-link btn btn-danger text-light">Stop</button>
+                    </form>
                 </td>
             </tr>
         }
