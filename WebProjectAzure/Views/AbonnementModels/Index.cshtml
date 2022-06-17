@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebProjectAzure.Models.AbonnementModel>
+﻿@using WebProjectAzure.Azure;
+@model IEnumerable<WebProjectAzure.Models.AbonnementModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +9,7 @@
 
 <p>
     @*<button type="button" asp-action="Create" class="btn btn-primary">Create New</button>*@
-       <a asp-action="Create">Create New</a> 
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -23,16 +24,13 @@
                 @Html.DisplayNameFor(model => model.TarifMensuel)
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["MailSortParm"]">@Html.DisplayNameFor(model => model.Mail)</a>
-            </th>
-            <th>
-                Subscription Action
-            </th>
-            <th>
                 Virtual Machine Status
             </th>
             <th>
                 Virtual Machine Action
+            </th>
+            <th>
+                Subscription Action
             </th>
         </tr>
     </thead>
@@ -50,26 +48,32 @@
                     @Html.DisplayFor(modelItem => item.TarifMensuel)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Mail)
+                    @Html.DisplayName(@AzureManager.Instance.GetState(item.IdVm))
+                </td>
+                <td>
+                    @if (@AzureManager.Instance.GetState(item.IdVm) == "RUNNING")
+                    {
+                        <form asp-action="StopVm">
+                            <input type="hidden" name="idVm" value="@item.IdVm" />
+                            <input type="submit" value="STOP" class="btn btn-danger" />
+                        </form>
+                    }
+                    else if (@AzureManager.Instance.GetState(item.IdVm) == "STOPPED")
+                    {
+                        <form asp-action="StartVm">
+                            <input type="hidden" name="idVm" value="@item.IdVm" />
+                            <input type="submit" value="START" class="btn btn-success" />
+                        </form>
+                    }
+                    else
+                    {
+                        <span>wait...</span>
+                    }
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-                <td>
-                    idVm
-                    @*@Html.DisplayFor(modelItem =>item.IdVm)*@
-                </td>
-                <td>
-                    <a asp-action="Start" asp-route-id="@item.Id">Start</a> |
-                    @*<form class="form-inline" asp-area="" asp-page="" asp-route-returnUrl="@Url.Action()">
-                <button type="submit" class="btn btn-success">Start</button>
-                </form>*@
-                    @*<button asp-action="Start" class="btn btn-success">Start</button>
-                @*<button type="button" asp-action="Start" class="btn btn-success">Start</button>*@
-                    <a asp-action="Stop" asp-route-id="@item.Id">Stop</a>
-                    @*<button type="button" asp-action="Stop" class="btn btn-danger">Stop</button>*@
                 </td>
             </tr>
         }

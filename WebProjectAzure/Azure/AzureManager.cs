@@ -1,9 +1,9 @@
-﻿using Microsoft.Azure.Management.ResourceManager.Fluent;
-using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
+﻿using Microsoft.Azure.Management.Compute.Fluent;
+using Microsoft.Azure.Management.Compute.Fluent.Models;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.Network.Fluent;
-using Microsoft.Azure.Management.Compute.Fluent;
-using Microsoft.Azure.Management.Compute.Fluent.Models;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
+using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using WebProjectAzure.Models;
 
 namespace WebProjectAzure.Azure
@@ -40,7 +40,7 @@ namespace WebProjectAzure.Azure
                 .WithSubscription(SUBSCRIPTION_ID);
         }
 
-        public IVirtualMachine? CreateVM(AbonnementModel abonnement)
+        public IVirtualMachine CreateVM(AbonnementModel abonnement)
         {
             IResourceGroup resourceGroup = azure.ResourceGroups.GetByName(RESOURCE_GROUP_NAME);
             INetwork network = azure.Networks.GetByResourceGroup(RESOURCE_GROUP_NAME, VNET_NAME);
@@ -76,28 +76,62 @@ namespace WebProjectAzure.Azure
 
         public string GetState(string vmId)
         {
-            return azure.VirtualMachines.GetById(vmId).PowerState.ToString();
+            if (String.IsNullOrEmpty(vmId)) return "CREATING";
+
+            PowerState state = azure.VirtualMachines.GetById(vmId).PowerState;
+
+            if (state != null)
+            {
+                if (state == PowerState.Running) return "RUNNING";
+                else if (state == PowerState.Deallocating) return "DEALLOCATING";
+                else if (state == PowerState.Deallocated) return "DEALLOCATED";
+                else if (state == PowerState.Starting) return "STARTING";
+                else if (state == PowerState.Stopped) return "STOPPED";
+                else if (state == PowerState.Stopping) return "STOPPING";
+                else if (state == PowerState.Unknown) return "UNKNOWN";
+            }
+
+            return "UNKNOWN";
         }
 
-        public void ShutDownVM(IVirtualMachine vm)
+        public void StartVM(string? vmId)
         {
-            vm.PowerOffAsync();
+            if (String.IsNullOrEmpty(vmId)) return;
 
-            Console.WriteLine("Currently VM {0} is {1}", vm.Id, vm.PowerState.ToString());
+            IVirtualMachine vm = azure.VirtualMachines.GetById(vmId);
+
+            if (vm != null)
+            {
+                vm.StartAsync();
+            }
         }
 
-        private void StartVM(IVirtualMachine vm)
+        public void StopVM(string? vmId)
         {
-            vm.StartAsync();
+            if (String.IsNullOrEmpty(vmId)) return;
 
-            Console.WriteLine("Currently VM {0} is {1}", vm.Id, vm.PowerState.ToString());
+            IVirtualMachine vm = azure.VirtualMachines.GetById(vmId);
+
+            if (vm != null)
+            {
+                vm.PowerOffAsync();
+            }
         }
 
-        private void DeleteVM(IVirtualMachine vm)
+        public void DeleteVM(string? vmId)
         {
-            azure.VirtualMachines.DeleteByIdAsync(vm.Id);
+            if (String.IsNullOrEmpty(vmId)) return;
 
-            Console.WriteLine("Currently VM {0} is {1}", vm.Id, vm.PowerState.ToString());
+            IVirtualMachine vm = azure.VirtualMachines.GetById(vmId);
+
+            if (vm != null)
+            {
+                string ipAddressId = vm.GetPrimaryPublicIPAddressId();
+                azure.VirtualMachines.DeleteById(vmId);
+                azure.Disks.DeleteById(vm.OSDiskId);
+                azure.NetworkInterfaces.DeleteById(vm.PrimaryNetworkInterfaceId);
+                azure.PublicIPAddresses.DeleteById(ipAddressId);
+            }
         }
 
     }

@@ -11670,19 +11670,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "C:\\Users\\martin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\front\\sdv-gaming\\WebProjectAzure\\WebProjectAzure.csproj",
+      "projectUniqueName": "C:\\Users\\martin\\Documents\\Projects\\Visual Studio\\SDV-Gaming\\WebProjectAzure\\WebProjectAzure.csproj",
       "projectName": "WebProjectAzure",
-      "projectPath": "C:\\Users\\User\\Desktop\\front\\sdv-gaming\\WebProjectAzure\\WebProjectAzure.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\front\\sdv-gaming\\WebProjectAzure\\obj\\",
+      "projectPath": "C:\\Users\\martin\\Documents\\Projects\\Visual Studio\\SDV-Gaming\\WebProjectAzure\\WebProjectAzure.csproj",
+      "packagesPath": "C:\\Users\\martin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\martin\\Documents\\Projects\\Visual Studio\\SDV-Gaming\\WebProjectAzure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11759,16 +11759,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problème de lecture du fichier cache C:\\Users\\User\\Desktop\\front\\sdv-gaming\\WebProjectAzure\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

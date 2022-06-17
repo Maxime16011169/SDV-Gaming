@@ -22,9 +22,9 @@ namespace WebProjectAzure.Controllers
         }
 
         // GET: AbonnementModels
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index()
         {
-            if (_context.ListeAbonnement == null) return Problem("Entity set 'ApplicationDbContext.abonnements'  is null.");
+            if (_context.ListeAbonnement == null) return Problem("Entity set 'ApplicationDbContext.ListeAbonnement' is null.");
 
             if (!_context.ListeAbonnement.Any()) return RedirectToAction(nameof(Create));
 
@@ -58,16 +58,14 @@ namespace WebProjectAzure.Controllers
         }
 
         // POST: AbonnementModels/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,DateDebut,Duree,TarifMensuel,Mail")] AbonnementModel abonnementModel)
         {
-            IVirtualMachine? vm = AzureManager.Instance.CreateVM(abonnementModel);
+            IVirtualMachine vm = AzureManager.Instance.CreateVM(abonnementModel);
 
-            abonnementModel.Mail = HttpContext.User.Identity.Name;
             abonnementModel.IdVm = vm.Id;
+            abonnementModel.Mail = HttpContext.User.Identity.Name;
 
             _context.Add(abonnementModel);
             await _context.SaveChangesAsync();
@@ -126,6 +124,26 @@ namespace WebProjectAzure.Controllers
             return View(abonnementModel);
         }
 
+        // POST: Abonnement/StartVm
+        // BODY: idVm
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult StartVm(string idVm)
+        {
+            AzureManager.Instance.StartVM(idVm);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Abonnement/StopVm
+        // BODY: idVm
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult StopVm(string idVm)
+        {
+            AzureManager.Instance.StopVM(idVm);
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: AbonnementModels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -157,6 +175,7 @@ namespace WebProjectAzure.Controllers
             if (abonnementModel != null)
             {
                 _context.ListeAbonnement.Remove(abonnementModel);
+                AzureManager.Instance.DeleteVM(abonnementModel.IdVm);
             }
 
             await _context.SaveChangesAsync();

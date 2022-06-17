@@ -49,6 +49,6 @@ namespace WebProjectAzure.Models
         /// <summary>
         /// Identifiant Azure de la VM
         /// </summary>
-        public string IdVm { get; set; }
+        public string? IdVm { get; set; }
     }
 }
