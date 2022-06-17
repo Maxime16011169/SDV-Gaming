@@ -7,7 +7,8 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @*<button type="button" asp-action="Create" class="btn btn-primary">Create New</button>*@
+       <a asp-action="Create">Create New</a> 
 </p>
 <table class="table">
     <thead>
@@ -21,13 +22,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.TarifMensuel)
             </th>
-@*            <th>
-                @Html.DisplayNameFor(model => model.Mail)
-            </th>*@
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["MailSortParm"]">@Html.DisplayNameFor(model => model.Mail)</a>
             </th>
-            <th></th>
+            <th>
+                Subscription Action
+            </th>
+            <th>
+                Virtual Machine Status
+            </th>
+            <th>
+                Virtual Machine Action
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -50,6 +56,20 @@
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+                <td>
+                    idVm
+                    @*@Html.DisplayFor(modelItem =>item.IdVm)*@
+                </td>
+                <td>
+                    <a asp-action="Start" asp-route-id="@item.Id">Start</a> |
+                    @*<form class="form-inline" asp-area="" asp-page="" asp-route-returnUrl="@Url.Action()">
+                <button type="submit" class="btn btn-success">Start</button>
+                </form>*@
+                    @*<button asp-action="Start" class="btn btn-success">Start</button>
+                @*<button type="button" asp-action="Start" class="btn btn-success">Start</button>*@
+                    <a asp-action="Stop" asp-route-id="@item.Id">Stop</a>
+                    @*<button type="button" asp-action="Stop" class="btn btn-danger">Stop</button>*@
                 </td>
             </tr>
         }

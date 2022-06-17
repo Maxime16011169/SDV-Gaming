@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WebProjectAzure.Data;
 using WebProjectAzure.Models;
 using WebProjectAzure.Azure;
+using Microsoft.Azure.Management.Compute.Fluent;
 
 namespace WebProjectAzure.Controllers
 {
@@ -63,11 +64,13 @@ namespace WebProjectAzure.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,DateDebut,Duree,TarifMensuel,Mail")] AbonnementModel abonnementModel)
         {
+            IVirtualMachine? vm = AzureManager.Instance.CreateVM(abonnementModel);
+
             abonnementModel.Mail = HttpContext.User.Identity.Name;
+            abonnementModel.IdVm = vm.Id;
+
             _context.Add(abonnementModel);
             await _context.SaveChangesAsync();
-
-            AzureManager.Instance.CreateVM(abonnementModel.Id);
 
             return RedirectToAction(nameof(Index));
         }
